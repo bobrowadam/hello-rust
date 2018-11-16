@@ -1,0 +1,6 @@
+[package]
+name = "hello-rust"
+version = "0.1.0"
+authors = ["bobrowadam <adam@bigpanda.io>"]
+
+[dependencies]
