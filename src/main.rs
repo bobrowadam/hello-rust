@@ -5,15 +5,10 @@ use chrono::Local;
 use std::time::{Instant, SystemTime};
 use uuid::Uuid;
 
-#[derive(Debug)] // This is for formating purposes
+mod types;
+
 struct TopicPartition(String, u32);
-#[derive(Debug)]
-struct Incident {
-    _id: Uuid,
-    start_time: SystemTime,
-    active: bool,
-    status: IncidentStatus,
-}
+use types::incident::{Incident, IncidentStatus};
 
 fn main() {
     structures();
@@ -21,6 +16,8 @@ fn main() {
     area_calc();
     enum_stuff();
     match_enums();
+    event::alert::print_alert();
+    notification::call_match_enums();
 }
 // Structs:
 fn structures() {
@@ -67,7 +64,7 @@ fn build_incident(
     start_time: SystemTime,
     active: bool,
     status: IncidentStatus,
-) -> Incident {
+) -> types::incident::Incident {
     Incident {
         _id,
         start_time,
@@ -98,12 +95,6 @@ impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.hight
     }
-}
-
-#[derive(Debug)]
-enum IncidentStatus {
-    Ok,
-    NotOk { message: String, status: String },
 }
 
 fn enum_stuff() {
@@ -156,4 +147,22 @@ fn match_enums() {
         ),
         IncidentStatus::Ok => println!("Result 2"),
     };
+}
+
+mod event {
+    pub mod alert {
+        pub fn print_alert() {
+            println!("{}", String::from("Alert is bla"))
+        }
+    }
+}
+
+mod notification {
+    pub fn call_match_enums() {
+        println!(
+            "{}",
+            String::from("Calling call_match_enums from notificaqtion mod")
+        );
+        super::match_enums();
+    }
 }
