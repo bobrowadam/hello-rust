@@ -2,12 +2,15 @@ extern crate chrono;
 extern crate uuid;
 
 use chrono::Local;
+mod collections;
+mod strings;
 use std::time::{Instant, SystemTime};
+use strings::strings_stuff::print_strings;
 use uuid::Uuid;
-
 mod types;
 
 struct TopicPartition(String, u32);
+use collections::vector::create_vector;
 use types::incident::{Incident, IncidentStatus};
 
 fn main() {
@@ -18,6 +21,8 @@ fn main() {
     match_enums();
     event::alert::print_alert();
     notification::call_match_enums();
+    create_vector();
+    print_strings();
 }
 // Structs:
 fn structures() {
@@ -145,7 +150,8 @@ fn match_enums() {
             "Its kind of ok... \nmessage: {},\nstatus: {}",
             message, status
         ),
-        IncidentStatus::Ok => println!("Result 2"),
+        _ => println!("didn't match")
+        // IncidentStatus::Ok => println!("Result 2"),
     };
 }
 
