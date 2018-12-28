@@ -1,17 +1,22 @@
-extern crate chrono;
-extern crate uuid;
-
-use chrono::Local;
-mod collections;
-mod strings;
 use std::time::{Instant, SystemTime};
-use strings::strings_stuff::print_strings;
+
+extern crate chrono;
+use chrono::Local;
+extern crate uuid;
 use uuid::Uuid;
+
+mod collections;
+use collections::vector::create_vector;
+
+mod strings;
+use strings::strings_stuff::print_strings;
+
 mod types;
+use types::incident::{Incident, IncidentStatus};
 
 struct TopicPartition(String, u32);
-use collections::vector::create_vector;
-use types::incident::{Incident, IncidentStatus};
+
+mod errors;
 
 fn main() {
     structures();
@@ -23,6 +28,8 @@ fn main() {
     notification::call_match_enums();
     create_vector();
     print_strings();
+    // errors::errors::make_errors();
+    errors::errors::file_error();
 }
 // Structs:
 fn structures() {
